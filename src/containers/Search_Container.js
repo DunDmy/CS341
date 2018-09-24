@@ -3,12 +3,15 @@ import {bindActionCreator} from 'redux';
 import {connect} from 'react-redux';
 //import scroll for search
 //import Scroll from './components/Search/Scroll';
-import SearchBox from './components/Search/SearchBox';
+import SearchBox from '../components/Search/SearchBox_Component';
 //import action for search
-import {setSearchField} from './actions/actionSearch';
+import {setSearchField} from '../actions/Search_Action';
+//list of prod
+import ListOfProd from './ListOfProd_Container';
 
 const mapStateToProps = state =>{
 	return{
+		product: state.product,
 		searchField: state.searchField
 	}
 }
@@ -21,12 +24,17 @@ const mapDispatchToProps = (dispatch) => {
 
 class Search extends React.Component{
 	render(){
+		const {searchField, onSearchChange} = this.props;
 		return(
-				const {searchField, onSearchChange} = this.props;
+			<div className = 'pv6 measure left'>
 				<SearchBox searchChange={onSearchChange}></SearchBox>
+				<ListOfProd></ListOfProd>
+			</div>
 			)
 	}
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
 
 
 

@@ -5,8 +5,9 @@
 */
 
 import  {combineReducers} from 'redux';
-import {searchProd} from './ReducerSearch';
-import Items from './ReducerListOfProd';
+import {searchProd} from './Search_Reducer';
+import {signIn} from './SignIn_Reducer';
+import User_Info from './UserList_Reducer';
 
 // const that combines all redusers. Add reducers when needed
-export const allReducers =  combineReducers({ searchProd,  product: Items });
+export const allReducers =  combineReducers({searchProd, signIn, userInfo: User_Info});

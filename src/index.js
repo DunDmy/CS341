@@ -10,10 +10,11 @@ import { createStore} from 'redux';
 // added Tachyons lib in place of CSS 9/10/2018 did
 import 'tachyons';
 // importing  combined reducer
-import {allReducers} from './reducers/ReducerIndex';
+import {allReducers} from './reducers/Master_Reducer';
 
 // creating store variable for states
 const store = createStore(allReducers);
+console.log(store.getState());
 ReactDOM.render(
 				<Provider store = {store}>
 				<App />
