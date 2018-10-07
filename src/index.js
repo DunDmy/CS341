@@ -12,6 +12,9 @@ import 'tachyons';
 // importing  combined reducer
 import {allReducers} from './reducers/Master_Reducer';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-theme.min.css';
+
 // creating store variable for states
 const store = createStore(allReducers);
 console.log(store.getState());

@@ -1,3 +1,9 @@
-//adding const for search field 09/11/2018
+//this file contains constants for reducers
 export const CHANGE_SEARCH_FIELD = 'CHANGE_SEARCH_FIELD';
 export const SIGNIN_SUBMIT = 'SIGNIN_SUBMIT';
+export const SIGNIN_SUBMIT_EMAIL = 'SIGNIN_SUBMIT_EMAIL';
+export const SIGNIN_SUBMIT_PASSWORD = 'SIGNIN_SUBMIT_PASSWORD';
+export const REGISTER_EMAIL = 'REGISTER_EMAIL';
+export const REGISTER_PASSWORD = 'REGISTER_PASSWORD';
+export const REGISTER_CONFIRM_PASSWORD = 'REGISTER_CONFIRM_PASSWORD';
+export const REGISTERED_USER = 'REGISTERED_USER';

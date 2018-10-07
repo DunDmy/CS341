@@ -1,5 +1,4 @@
 /*
-* TITLE: reducerSearch
 * @Author: Dmytro I Dundukov
 * DESC: This reducer is used for instant search. 
 */
@@ -48,8 +47,8 @@ const initialState = {
  * This functoin is updates the state based on the user's input.
  */
 export const searchProd = (state = initialState, action={}) =>{
-	console.log(action.payload);
-	console.log(action.type);
+	//console.log(action.payload);
+	//console.log(action.type);
 	switch(action.type){
 		case CHANGE_SEARCH_FIELD:{
 			return {...state, searchField: action.payload};}
