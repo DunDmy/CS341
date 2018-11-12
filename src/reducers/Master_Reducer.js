@@ -1,6 +1,6 @@
 /*
 * TITLE: reducerIndex
-* @Author: Dmytro I Dundukov
+* @Author: Dmytro I Dundukov, Austin Vanburen
 * DESC: This reducer is used to combine all reducers into one object that will be passed to store inside index.js. 
 */
 
@@ -11,20 +11,23 @@ import {signIn} from './SignIn_Reducer';
 import {register} from './Register_Reducer';
 
 //Imported Reducers
-import ActiveItem from './ActiveItem_Reducer.js'
-import ActiveUser from './ActiveUser_Reducer.js'
-import App from './App_Reducer.js'
-import ShoppingCart from './ShoppingCart_Reducer.js'
-import ShoppingPage from './ShoppingPage_Reducer.js'
+import ActiveItem from './ActiveItem_Reducer.js';
+import ActiveUser from './ActiveUser_Reducer.js';
+import App from './App_Reducer.js';
+import ShoppingCart from './ShoppingCart_Reducer.js';
+import ShoppingPage from './ShoppingPage_Reducer.js';
 import User_Info from './UserList_Reducer';
-
+import AdminPage from './AdminPage_Reducer.js';
+import Pricing from './Pricing_Reducer.js';
 
 // const that combines all redusers. Add reducers when needed
 export const allReducers =  combineReducers({searchProd, signIn, register, 
+	adminPageStates: AdminPage,
 	userInfo: User_Info,
 	activeUser: ActiveUser,
 	appStates: App,
 	activeItem: ActiveItem,
 	shoppingPageStates: ShoppingPage,
-	cart: ShoppingCart
+	cart: ShoppingCart,
+	pricing: Pricing,
 });

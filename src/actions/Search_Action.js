@@ -1,8 +1,10 @@
-/*
-* Author: Dmytro I Dundukov 
-* SHORT DESC: Action for Search container
-* LONG DESC: This file contains actions for Search container 
-*/
+/* Author: Dmytro I Dundukov 
+ * Description: Set text filters products shown in search container.
+ * Parameters: text
+ * Connected Reducers: Search_Reducer
+ * Connected to Database: FALSE
+ */
+
 import {CHANGE_SEARCH_FIELD} from '../constants/constants';
 
 // search field

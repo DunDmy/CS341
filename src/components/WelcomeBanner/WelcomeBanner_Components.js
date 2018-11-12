@@ -9,12 +9,14 @@ import React from 'react';
 
 //Bootstrap components
 import {Grid, Col, Row, Image, Button} from 'react-bootstrap';
+import thumbnail from './cat.png';
 
 //Notes: Control structure in default function export (welcomebanner components) works! Based on state of props.
 //Notes: passing props is a reliable solution.
 //Notes: Figured out a reliable solution for sending data to the store.
 
 const WelcomeBanner_Components = ({props}) => {
+	console.log(props.userisGuest);
 	if(props.user.isGuest) { return renderGuest(props) }
 	else { return renderUser(props) }
 }
@@ -26,7 +28,7 @@ const renderGuest = (props) => {
 		<Grid>
 		  	<Row>
 		    	<Col xs={6} md={3}>
-		      		<Image src="./cat.png" rounded onClick={() => props.changePage('w')}/>
+		      		<Image src={thumbnail} rounded onClick={() => props.changePage('w')}/>
 		    	</Col>
 		    	<Col xs={6} md={3}>
 		      		<Button onClick={() => props.changePage('s')}>Shop!</Button>
@@ -47,13 +49,13 @@ const renderUser = (props) => {
 		<Grid>
 		  	<Row>
 		    	<Col xs={6} md={3}>
-		      		<Image src=".'/cat.png" rounded onClick={() => props.changePage('w')}/>
+		      		<Image src={thumbnail} rounded onClick={() => props.changePage('w')}/>
 		    	</Col>
 		    	<Col xs={6} md={3}>
 		      		<Button onClick={() => props.changePage('s')}>Shop!</Button>
 		    	</Col>
 		    	<Col xs={6} md={3}>
-		      		<Button>{props.user.firstName}</Button>
+		      		<Button>{props.user.userEmail}</Button>
 		    	</Col>
 		  	</Row>
 		</Grid>

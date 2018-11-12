@@ -7,6 +7,13 @@ import React, {Component} from 'react';
 
 // signin component
 const SignInSubmit = ({props}) => {
+    function onClick (event){
+      event.preventDefault();
+      props.signInSubmit(document.getElementById("email-address").value,
+                 document.getElementById("password").value);
+      props.changePage('s');
+    }
+
 
 	  return (
 	  	<main class="pa4 black-80">
@@ -37,7 +44,7 @@ const SignInSubmit = ({props}) => {
               class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
               type="submit" 
               value="Sign in"
-              onClick= {() => props.signInSubmit('e')}/>
+              onClick= {(event) => onClick(event)}/>
     			</div>
   			</form>
 		</main>

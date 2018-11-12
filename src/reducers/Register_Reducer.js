@@ -10,11 +10,15 @@ const initialState = {
 	userEmail: '',
 	registerConfirmPassword: '',
 	registerPassword: '',
-	registered: false
 }
 
 export const register = ( state = initialState, action = {}) => {
 	switch(action.type){
+		case "REGISTER_SUCCESS":
+			return state;
+		case "REGISTER_FAILURE":
+			console.log("Error: ", action.payload);
+			return state;
 		case REGISTER_EMAIL:{
 			// console.log("Action from register email");
 			// console.log(action.type);

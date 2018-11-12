@@ -8,16 +8,37 @@
 const initialState = {
 	id: 0,
 	userEmail: 'GUEST',
-	userPassword: 'GUEST',
-	registerConfirmPassword: ' ',
 	firstName: 'John',
 	lastName: 'Wayne',
-	isGuest: true	
+	isGuest: true,
+	isAdmin: false	
 }
 
 //Reducer
 export default function (state=initialState, action) {
 	switch(action.type) {
+/************************************************************************/
+		case "SIGNIN_SUBMIT_SUCCESS":
+			console.log(action.payload);
+			return {...state, 
+				id: action.payload[0].USER_ID,
+				userEmail: action.payload[0].USER_EMAIL,
+				firstName: action.payload[0].USER_FNAME,
+				lastName: action.payload[0].USER_LNAME,
+				isGuest: false,
+				isAdmin: action.payload[0].IS_ADMIN,
+			};
+		case "SIGNIN_SUBMIT_FAILURE":
+			console.log("Error: ", action.payload);
+			return state;
+/************************************************************************/
+		case "SET_BILLING_SUCCESS":
+			console.log(action.payload);
+			return state;
+		case "SET_BILLING_FAILURE":
+			console.log("Error: ", action.payload);
+			return state;
+/************************************************************************/
 		case REGISTER_EMAIL:{
 			// console.log("Action from register email");
 			// console.log(action.type);

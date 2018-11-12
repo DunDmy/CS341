@@ -1,8 +1,8 @@
 /* Author: Austin Vanburen
- * Last Edited:
- * Status: Complete.
- *
- * Changes the page of the webapplication. Where page is a char from the set {w, r, l, s}.
+ * Description: Mimicks multiple webpages across this single page application.
+ * Parameters: page where page is a char from the set {w, s, l, r}.
+ * Connected Reducers: App_Reducer
+ * Connected to Database: FALSE
  */
 
 export const changePage = (page) => {

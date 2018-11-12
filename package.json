@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^3.3.7",
+    "rc-calendar": "^9.7.11",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.4",
+    "react-credit-card-input": "^1.0.15",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
+    "react-scrollbar": "^0.5.4",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "tachyons": "^4.11.1"
   },
   "scripts": {

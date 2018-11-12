@@ -14,22 +14,17 @@ const ItemInfo_Components = ({props}) => {
 	return (
 		<Modal.Dialog>
 			<Modal.Header>
-				<Modal.Title>{props.item.prodName}</Modal.Title>
+				<Modal.Title>{props.item.prod}</Modal.Title>
+				<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeFlux('e')}>X</Button>
 			</Modal.Header>
-			<Modal.Body>
+			<Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
 				<Grid>
 		  			<Row className="show-grid">
 		  				<Col xs={6} md={3}>
-		     				<Thumbnail href="#" alt="171x180" src={props.item.image} />
-		    			</Col>
-		    			<Col xs={6} md={3}>
-		      				<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeFlux('e')}>X</Button>
+		     				<img className="w2 h2 w3-ns h3-ns br-100" src={props.item.image}/>
 		    			</Col>
 		  			</Row>
 		  			<Row className="show-grid">
-		   				<Col xs={6} md={3}>
-		      				<h5>{props.item.type}</h5>
-		    			</Col>
 		    			<Col xs={6} md={3}>
 		      				<p>{props.item.description}</p>
 			   			</Col>
@@ -38,12 +33,10 @@ const ItemInfo_Components = ({props}) => {
 			   			<Col xs={6} md={3}>
 			      			<h5>{props.item.price}</h5>
 			    		</Col>
-			    		<Col xs={6} md={3}>
-			   				<Button bsSize="small" onClick={() => props.addToCart('l')}>Add to Cart</Button>
-			   			</Col>
 		  			</Row>
 				</Grid>
 			</Modal.Body>
+			<Button bsSize="small" onClick={() => props.addToCart(props.item)}>Add to Cart</Button>
 		</Modal.Dialog>
 	);
 }

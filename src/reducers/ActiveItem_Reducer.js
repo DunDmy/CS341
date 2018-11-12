@@ -5,23 +5,35 @@
 
 //Initial State. Default user is a guest.
 const initialState = {
-	id: 0,
-	prodName: "PRODUCTNAME",
-	price: "$0.00",
-	type: "NAN",
-	description: "DESCRIPTION",
-	image: "./thumbnail.png"
+	"id": 0,
+	"prod": "item",
+	"desc": "desc",
+	"price": 10.50,
 
+	"sale": false,
+	"saleStart": null,
+	"saleEnd": null,
+	"salePrice": 10.50,
+
+	"promo": false,
+	"promoPrice": 10.50,
+	"promoCode": "NOCODE",
+	"promoStart": null,
+	"promoEnd": null,
+	"numAvail": 1, //TODO: ADD
+	"image": "http://tachyons.io/img/avatar-mrmrs.jpg",
+				
+	"quantity": 1, //TODO: ADD
 }
 
 //Reducer
 export default function (state=initialState, action) {
 	switch(action.type) {
-		case "ADDING_TO_CART": //TODO: Figure out how to add to an array. Should update total price aswell.
-			//state = {	
-			//}
-
-			return state
+		case "ADD_BLANK_ITEM":
+			return action.payload;
+			break;
+		case "UPDATE_ACTIVE_ITEM":
+			return Object.assign({}, state, action.payload);
 			break;
 		default:
 			return state;

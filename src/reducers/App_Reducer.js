@@ -13,10 +13,10 @@ const initialState = {
 export default function (state=initialState, action) {
 	switch(action.type) {
 		case "PAGE_CHANGE":
-			state={ 
+			/*state={ 
 				page: action.payload
-			}
-			return state
+			}*/
+			return {...state, page: action.payload}
 			break;
 		default:
 			return state;

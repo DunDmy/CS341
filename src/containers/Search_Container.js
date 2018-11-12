@@ -38,7 +38,9 @@ class Search extends React.Component{
 		return(
 			<div className = 'pv6 measure left'>
 				<SearchBox searchChange={onSearchChange}></SearchBox>
-				<ListOfProd></ListOfProd>
+				<div style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
+					<ListOfProd></ListOfProd>
+				</div>
 			</div>
 			)
 	}

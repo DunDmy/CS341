@@ -7,13 +7,14 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {signInSubmitEmail, signInSubmitPassword, signInSubmit} from '../actions/SignIn_Action';
-import Sign from '../components/SignIn/SignIn_Component';;
+import {changePage} from '../actions/changePage';
+import Sign from '../components/SignIn/SignIn_Component';
 
 // redux syntax that is used to access props from the store object
 const mapStateToProps = state =>{
   return{
-    user: state.user,
-    password: state.password
+    user: state.signIn.user,
+    password: state.signIn.password
   }
 }
 
@@ -23,7 +24,11 @@ const mapDispatchToProps = (dispatch) => {
   console.log("Submit");
   //console.log(this.props.value);
   return(
-    bindActionCreators({signInSubmit: signInSubmit, signInSubmitEmail: signInSubmitEmail, signInSubmitPassword: signInSubmitPassword}, dispatch)
+    bindActionCreators({signInSubmit: signInSubmit, 
+                        signInSubmitEmail: signInSubmitEmail, 
+                        signInSubmitPassword: signInSubmitPassword,
+                        changePage: changePage,
+                      }, dispatch)
   )
 }
 

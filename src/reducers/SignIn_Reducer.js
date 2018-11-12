@@ -14,24 +14,19 @@ const initialState = {
 export const signIn = (state = initialState, action={}) =>{
 	switch(action.type){
 		case SIGNIN_SUBMIT_EMAIL:{
-			  console.log("inside SIGNIN_SUBMIT_EMAIL");
-			  console.log(action.payload);
-			return {...state, email: action.payload};
+			  //console.log("inside SIGNIN_SUBMIT_EMAIL");
+			  //console.log(action.payload);
+			return {...state, user: action.payload};
 		}
 		case SIGNIN_SUBMIT_PASSWORD:{
-			  console.log("inside SIGNIN_SUBMIT_PASSWORD");
-			  console.log(action.payload);
+			  //console.log("inside SIGNIN_SUBMIT_PASSWORD");
+			  //console.log(action.payload);
 			return {...state, password: action.payload};
 		}
-		case SIGNIN_SUBMIT:{
-			if( state.password === '111'){
-				console.log("Success")
-			}
-		}
 		default:
-			console.log(action.type);
-			console.log(state.password);
-			console.log("inside reducer");
+			//console.log(action.type);
+			//console.log(state.password);
+			//console.log("inside reducer");
 			return state;
 	}
 }

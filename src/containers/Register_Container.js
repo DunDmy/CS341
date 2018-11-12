@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import RegisterUser from '../components/Register/Register_Component';
-import {registerEmail, registerPassword, registerConfirmPassword, registeredUser } from '../actions/Register_Action';
+import {registerEmail, registerPassword, registerConfirmPassword, registeredUser, register } from '../actions/Register_Action';
 
 // redux syntax that is used to access props from the store object
 const mapStateToProps = state =>{
@@ -24,8 +24,13 @@ const mapDispatchToProps = (dispatch) => {
   //console.log("Register Dispatch");
   //console.log(this.props.value);
   return(
-    bindActionCreators({registerEmail: registerEmail, registerPassword: registerPassword,
-                                       registerConfirmPassword: registerConfirmPassword, registeredUser: registeredUser }, dispatch)
+    bindActionCreators({
+      registerEmail: registerEmail, 
+      registerPassword: registerPassword,
+      registerConfirmPassword: registerConfirmPassword,
+      registeredUser: registeredUser,
+      registerAction: register,
+    }, dispatch)
   )
 }
 

@@ -44,7 +44,7 @@ const Register = ({props}) => {
       				<input 
                 class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
                 type="submit" 
-                onClick = {() => props.registeredUser(false)}/>
+                onClick = {() => props.registerAction(props.register)}/>
     			</div>
   			</form>
 		</main>

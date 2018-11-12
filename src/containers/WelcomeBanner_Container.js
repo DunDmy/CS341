@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class WelcomeBanner_Container extends Component {
 	render() {
-		//console.log(this.props.app.page)
+		//console.log(this.props)
 		return (
 			<WelcomeBanner props={this.props}></WelcomeBanner>
 		);

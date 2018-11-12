@@ -14,14 +14,15 @@ import {Grid, Col, Row, Image, Button, Panel, Thumbnail} from 'react-bootstrap';
 //Imported Components
 import WelcomeBanner from './WelcomeBanner_Container.js';
 import Search from './Search_Container';
+import ShoppingCart from './ShoppingCart_Container.js';
 
-
-//Flux Area
+//Flux Area Components
 import ItemInfo from './ItemInfo_Container.js';
-
+import Checkout from './Checkout_Container.js';
+import Billing from './Billing_Container.js';
+import Review from './Review_Container.js';
 
 //Imported Actions
-
 
 //Access storage.
 const mapStateToProps = (state) =>{
@@ -54,7 +55,7 @@ class ShoppingPage extends Component {
 			    		{this.renderFlux()}
 			    	</Col>
 			    	<Col xs={12} md={8}>
-			    		<p1>Shopping Cart</p1>
+			    		<ShoppingCart></ShoppingCart>
 			    	</Col>
 			  	</Row>
 			  	<Row className="show-grid">
@@ -67,9 +68,13 @@ class ShoppingPage extends Component {
 	}
 
 	renderFlux() {
-		if (this.props.shopStates.flux == 'e') {
-			return (<Panel></Panel>);
-		} else if (this.props.shopStates.flux == 'i') {
+		if (this.props.shopStates.flux === 'r') {
+			return (<Review></Review>);
+		} else if (this.props.shopStates.flux === 'b') {
+			return (<Billing></Billing>);
+		} else if (this.props.shopStates.flux === 'c') {
+			return (<Checkout></Checkout>);
+		} else if (this.props.shopStates.flux === 'i') {
 			return (<ItemInfo></ItemInfo>);
 		} else {
 			return(<Panel></Panel>);
