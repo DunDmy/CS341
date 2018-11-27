@@ -60,13 +60,14 @@ const Checkout_Components = ({props}) => {
 					</Row>
 				</Grid>
 			</Modal.Body>
-			<Button bsSize="small" onClick={() => confirm(props, this)} ref={this.confirmButton = React.createRef()}
+			<Button bsSize="small" onClick={(event) => confirm(event, props, this)} ref={this.confirmButton = React.createRef()}
 			>Confirm</Button>
 		</Modal.Dialog>
 	);
 }
 
-function confirm(props, page) {
+function confirm(event, props, page) {
+	event.preventDefault();
 	var valid = (
 		page.cardForm.current.cardNumberField.validity.valid &
 		page.cardForm.current.cardExpiryField.validity.valid &
@@ -84,7 +85,7 @@ function confirm(props, page) {
 	console.log(card)
 
 	props.setBilling(card);
-	//props.reduceItemStock(props.items.filter(greaterThan0));
+	//Items = items in cart.
 	props.reduceItemStock(props.items);
 	props.clearCart();
 
@@ -93,7 +94,7 @@ function confirm(props, page) {
 
 function renderListofItems (props) {
 	console.log(props)
-	const itemsInCart = props.items.filter(greaterThan0);
+	const itemsInCart = props.items//.filter(greaterThan0);
 
 	return itemsInCart.map((items, i) => {
 		return(
@@ -106,11 +107,22 @@ function renderListofItems (props) {
 				    <a className="f6 db black-70">{items.quantity}x </a>
 			    </div>
 				<div>
-				    <a className="f6 db black-70">{items.price}</a>
+				    <a className="f6 db black-70">{renderPrice(items, props.cart.promoEnabled)}</a>
 			    </div>
 			</li>
 		)
 	});
+}
+
+
+function renderPrice(item, promoEnabled) {
+	if(promoEnabled && item.promo) {
+		return (item.price - (item.price * item.promoPrice));
+	} else if (item.sale) {
+		return item.salePrice;
+	} else {
+		return item.price;
+	}
 }
 
 const greaterThan0 = (element, index, array) => {

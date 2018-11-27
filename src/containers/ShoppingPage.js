@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreates} from 'redux';
+import axios from 'axios';
 
 //Bootstrap Components
 import {Grid, Col, Row, Image, Button, Panel, Thumbnail} from 'react-bootstrap';
@@ -23,6 +24,7 @@ import Billing from './Billing_Container.js';
 import Review from './Review_Container.js';
 
 //Imported Actions
+import {populateItems} from '../actions/populateItems.js'
 
 //Access storage.
 const mapStateToProps = (state) =>{
@@ -33,12 +35,17 @@ const mapStateToProps = (state) =>{
 
 //Handles actions.
 const mapDispatchToProps = (dispatch) => {
-	return {
+	return{
+		populateItems: (res) => dispatch(populateItems(res)),
 	}
 }
 
 //Renders component.
 class ShoppingPage extends Component {
+	componentDidMount() {
+		axios.get('http://localhost:3000/shoppingpage/admin/products/')
+			.then(res => this.props.populateItems(res))
+	}
 	render() {
 		return (
 			<Grid>

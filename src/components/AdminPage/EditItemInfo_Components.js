@@ -16,14 +16,16 @@ import {Grid, Col, Row, Image, Button, Panel, Thumbnail, Modal, FormGroup, FormC
 const ItemInfo_Components = ({props}) => {
 	function onClick (event){
 	    event.preventDefault();
+	   //console.log(document.getElementById("item-promo").checked);
+
 	    props.saveItem({
   					id: props.item.id,
 					prod: document.getElementById("item-name").value,
 					price: document.getElementById("item-price").value,
 					desc: document.getElementById("item-description").value,
 					image: document.getElementById("image-path").value,
-					promo: document.getElementById("item-promo").value,
-					sale: document.getElementById("item-sale").value,
+					promo: document.getElementById("item-promo").checked,
+					sale: document.getElementById("item-sale").checked,
 					salePrice: document.getElementById("item-saleprice").value,
 					//quantity: props.item.quantity,
 					numAvail: document.getElementById("item-stock").value
@@ -72,7 +74,7 @@ const ItemInfo_Components = ({props}) => {
 								<fieldset id="ITEMPROMO" class="bn">
 							    	<div class="">
 							    		<label for="item-promo" class="db fw6 lh-copy f6">Promotional Item: </label>
-							      		<input class="mr2" type="checkbox" id="item-promo" value={props.item.promo}></input>
+							      		<input class="mr2" type="checkbox" id="item-promo" defaultValue={props.item.promo}></input>
 							    	</div>
 							  	</fieldset>
 							</form>
@@ -94,7 +96,7 @@ const ItemInfo_Components = ({props}) => {
 								<fieldset id="ITEMSALE" class="bn">
 							    	<div class="">
 							    		<label for="item-sale" class="db fw6 lh-copy f6">Sale Item: </label>
-							      		<input class="mr2" type="checkbox" id="item-sale" value={props.item.sale}></input>
+							      		<input class="mr2" type="checkbox" id="item-sale" defaultValue={props.item.sale}></input>
 							    	</div>
 							  	</fieldset>
 							</form>

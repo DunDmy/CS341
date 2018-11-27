@@ -76,6 +76,9 @@ const Checkout_Components = ({props}) => {
 			    					inputRef={this.cityForm = React.createRef()}
 		    					/>
 		    				</Col>
+						</FormGroup>
+
+						<FormGroup controlId="">
 		    				<Col md={3}>
 		      					State:
 		    				</Col>
@@ -87,6 +90,9 @@ const Checkout_Components = ({props}) => {
 			    					inputRef={this.stateForm = React.createRef()}
 		    					/>
 		    				</Col>
+						</FormGroup>
+
+						<FormGroup controlId="">
 		    				<Col md={3}>
 		      					Zip:
 		    				</Col>
@@ -99,15 +105,44 @@ const Checkout_Components = ({props}) => {
 		    					/>
 		    				</Col>
 						</FormGroup>
+
+						<FormGroup controlId="">
+		    				<Col md={3}>
+		      					Promo:
+		    				</Col>
+		   					<Col md={6}>
+		    					<FormControl 
+			    					type="text" 
+			    					placeholder="" 
+			    					defaultValue=""
+			    					inputRef={this.promoForm = React.createRef()}
+		    					/>
+		    				</Col>
+						</FormGroup>
 					</Form>
 			</Modal.Body>
-			<Button bsSize="small" onClick={() => test(props, this)}>Continue</Button>
+			<Button bsSize="small" onClick={(event) => test(event, props, this)}>Continue</Button>
 		</Modal.Dialog>
 	);
 }
 
-function test(props, page) {
+function test(event, props, page) {
+		event.preventDefault();
+
+		//Evalates promoCode.
+		var enteredPromo = page.promoForm.current.value;
+		var promo = props.items[0].promoCode;
+		console.log(enteredPromo);
+		console.log(promo);
+
+		var enablePromo = false;
+		if (promo === enteredPromo) { //TODO: CHECK for date.
+			enablePromo = true;
+		}
+
 		var shippingInfo = {
+			promoEnabled: enablePromo,
+
 			name: page.nameForm.current.value,
 			country: page.countryForm.current.value,
 			street: page.stateForm.current.value,
@@ -120,7 +155,7 @@ function test(props, page) {
 		var costInfo = {
 			shippingCost: shippingCost(shippingInfo),
 			taxesCost: taxesCost(props),
-			productCost: totalProductCost(props),
+			productCost: totalProductCost(props, enablePromo),
 			orderTotal: 0.00,
 			savingsTotal: savingsTotal(props),
 		}
@@ -140,26 +175,35 @@ function taxesCost(props) {
 	return 1.00;
 }
 
-function totalProductCost(props) {
-	const itemsInCart = props.items.filter(greaterThan0);
-	console.log(itemsInCart)
-	var tpp = 0.00;
-	itemsInCart.map((items, i) => {
-		var tpp = 0.00;
-		return (
-			tpp = tpp + parseFloat(items.price)
+function totalProductCost(props, promoEnabled) {
+	const itemsInCart = props.items//.filter(greaterThan0);
+	console.log(props.cart)
+	//console.log("PromoValid?", props.cart.promoEnabled)
 
-		)
+	var tpp = 0.00;
+	itemsInCart.map((item, i) => {
+		const quantity = item.quantity;
+
+		//Promo Item
+		if (promoEnabled && item.promo) {
+			tpp += (item.price - (item.price * item.promoPrice)) * quantity;
+		
+		//Sale Item
+		} else if (item.sale) {
+			tpp += item.salePrice * quantity;
+		
+		//Default Value
+		} else {
+			tpp += item.price * quantity;
+		}
+
+		return item;
 	})
 	return tpp;
 }
 
 function savingsTotal(props) {
-	//
-	//TODO: retrieve from reducer.
-
 	return 0;
-
 }
 
 const greaterThan0 = (element, index, array) => {

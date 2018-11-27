@@ -8,6 +8,9 @@ const initialState = {
 	//State Information
 	editable: false,
 
+	//Promotional
+	promoEnabled: false,
+
 	//Cost Information
 	shippingCost: 0.00,
 	taxesCost: 0.00,
@@ -23,81 +26,14 @@ const initialState = {
 	state: "NA",
 	zip: "NA",
 
-	//Item Information within Cart. Quantity of 0 denotes empty slot.
-	items : [
-		{	
-			id: 0,
-			prod: "PRODUCTNAME",
-			price: "0.00",
-			promoPrice: "0.00",
-			salePrice: "0.00",
-			desc: "NA",
-			image: "./thumbnail.png",
-			promo: false,
-			sale: false,
-			quantity: 0,
-			numAvail: 1
-		},
-		{
-			id: 1,
-			prod: "PRODUCTNAME",
-			price: "0.00",
-			promoPrice: "0.00",
-			salePrice: "0.00",
-			desc: "NA",
-			image: "./thumbnail.png",
-			promo: false,
-			sale: false,
-			quantity: 0,
-			numAvail: 1
-		},
-		{
-			id: 2,
-			prod: "PRODUCTNAME",
-			price: "0.00",
-			promoPrice: "0.00",
-			salePrice: "0.00",
-			desc: "NA",
-			image: "./thumbnail.png",
-			promo: false,
-			sale: false,
-			quantity: 0,
-			numAvail: 1
-		},
-		{
-			id: 3,
-			prod: "PRODUCTNAME",
-			price: "0.00",
-			promoPrice: "0.00",
-			salePrice: "0.00",
-			desc: "NA",
-			image: "./thumbnail.png",
-			promo: false,
-			sale: false,
-			quantity: 0,
-			numAvail: 1
-		},
-		{
-			id: 4,
-			prod: "PRODUCTNAME",
-			price: "0.00",
-			promoPrice: "0.00",
-			salePrice: "0.00",
-			desc: "NA",
-			image: "./thumbnail.png",
-			promo: false,
-			sale: false,
-			quantity: 0,
-			numAvail: 1
-		}
-
-	]
+	//Item Information within Cart
+	items : []
 }
 
 //Reducer
 export default function (state=initialState, action) {
 	function evalID (element) {
-		return element.id == action.payload[0];
+		return element.id === action.payload[0];
 	};
 
 	//Empty slots are denoted with a quantity of 0.
@@ -106,12 +42,33 @@ export default function (state=initialState, action) {
 	};
 
 	switch(action.type) {
+		case "SET_COSTS":
+			return {...state,
+				shippingCost: action.payload.shippingCost,
+				taxesCost: action.payload.taxesCost,
+				orderCost: action.payload.productCost,
+				totalCost: action.payload.orderTotal,
+				savingsTotal: action.payload.savingsTotal,
+			}
+
+		case "SET_SHIPPING":
+		console.log(action.payload);
+			return {...state, 
+				promoEnabled: action.payload.promoEnabled,
+				name: action.payload.name,
+				country: action.payload.country,
+				street: action.payload.street,
+				city: action.payload.city,
+				state: action.payload.state,
+				zip: action.payload.zip,
+			}
+
 		case "SHOPPINGCART_EDIT":
 			return {...state, editable: action.payload};
 
 /************************************************************************/	
 		case "CLEAR_CART_SUCCESS":
-			return action.payload;
+			return initialState;
 
 		case "CLEAR_CART_FAILURE":
 			console.log("Error: ", action.payload);
@@ -128,17 +85,15 @@ export default function (state=initialState, action) {
 /************************************************************************/	
 		case "ADD_TO_CART_SUCCESS":
 			//Given the item is already within the shopping cart, increments quantity and returns.
-			var i = state.items.findIndex(evalID);
+			var i = state.items.findIndex(item => item.id === action.payload.id);
 			if (i != -1) { 
-				let a = state.items.slice();
+				var a = state.items.slice();
 				a[i].quantity++;
 				return {...state, items: a};
 			};
 
 			//Item is not within cart, adds to cart.
-			//i = state.items.findIndex(findEmptySlot);
-			//a[i] = action.payload;
-			let a = state.items.slice(); //Clones array from state.
+			var a = state.items.slice(); //Clones array from state.
 			a.push(action.payload);
 			return {...state, items: a};
 
@@ -147,17 +102,12 @@ export default function (state=initialState, action) {
 			return state;
 
 /************************************************************************/	
-		case "QUANTITY_CHANGE_SUCCESS":
+		case "CHANGE_QUANTITY_SUCCESS":
 			//var i = state.items.findIndex(evalID);
-			let b = state.items.slice();
+			var a = action.payload;
+			return {...state, items: a};
 
-			//If item is 0, then it is removed from the shopping cart.
-			//if (action.payload[1] <= 0) { b.slice(i, 1); }
-			//else if (action.payload[1] > b[i].numAvail) {console.log("Error, number avail does not meet desired quantity.")}
-			//else { b[i].quantity = action.payload[1]; }
-			return {...state, items: b};
-
-		case "QUANTITY_CHANGE_FAILURE":
+		case "CHANGE_QUANTITY_FAILURE":
 			console.log("Error: ", action.payload);
 			return state;
 

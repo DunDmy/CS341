@@ -15,7 +15,7 @@ const initialState = {
 //Reducer
 export default function (state=initialState, action) {
 	switch(action.type) {
-		case "ACTIVATE_PROMOTION_SUCCESS":
+		/*case "ACTIVATE_PROMOTION_SUCCESS":
 			console.log("TODO: update promotion dates in reducer.");
 			return state;
 
@@ -30,7 +30,7 @@ export default function (state=initialState, action) {
 		case "ACTIVATE_SALE_FAILURE":
 			console.log("Error: ", action.payload);
 			return state;
-
+*/
 		default:
 			return state;
 	}

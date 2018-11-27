@@ -11,6 +11,11 @@ import React from 'react';
 import {Grid, Col, Row, Image, Button, Panel, Thumbnail, Modal} from 'react-bootstrap';
 
 const ItemInfo_Components = ({props}) => {
+	function onClick(event, props) {
+		event.preventDefault();
+		props.addToCart(props.item);
+	}
+
 	return (
 		<Modal.Dialog>
 			<Modal.Header>
@@ -36,7 +41,7 @@ const ItemInfo_Components = ({props}) => {
 		  			</Row>
 				</Grid>
 			</Modal.Body>
-			<Button bsSize="small" onClick={() => props.addToCart(props.item)}>Add to Cart</Button>
+			<Button bsSize="small" onClick={(event) => onClick(event, props)}>Add to Cart</Button>
 		</Modal.Dialog>
 	);
 }

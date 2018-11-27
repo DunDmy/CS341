@@ -45,14 +45,14 @@ class ListOfProd extends React.Component {
 			return(
 					<li key={i} className="flex items-center lh-copy pa3 ph0-l bb b--black-10 w-100">
 					  <img className="w2 h2 w3-ns h3-ns br-100" src="http://tachyons.io/img/avatar-mrmrs.jpg" onClick={() => this.activateItemInfo(product)}/>
-					  <div className="pl3 flex-auto">{this.displayPrices(product)}</div>
+					  <div className="pl3 flex-auto">{product.prod}</div>
 					  <div>
 					    <span className="f6 db black-70 mr3">Price: {product.price}</span>
 					    <span className="f6 db black-70 mr3">Stock: {product.numAvail}</span>
 					  </div>
 					  <div>
-					    <span className="f6 db black-70 mr3">Promotional: {product.promo}</span>
-					    <span className="f6 db black-70 mr3">{product.promo}</span>
+					    <span className="f6 db black-70 mr3">Promo: {product.price - (product.price * product.promoPrice)}</span>
+					    <span className="f6 db black-70 mr3">P-Price: {this.displayPrices(product)}</span>
 					  </div>
 					</li>
 				)
@@ -61,12 +61,15 @@ class ListOfProd extends React.Component {
 	}
 
 	displayPrices(product){
+		console.log(product.promoPrice)
+		return product.price - (product.price * product.promoPrice);
+
 		if (product.sale) {
 			return (
 		  		<div>
 				    <span className="f6 db red-70 mr3">Price: {product.salePrice}</span>
 				    <span className="f6 db black-70 mr3">Stock: {product.numAvail}</span>
-				  </div>		
+				</div>		
 			);
 		} else {
 			return(

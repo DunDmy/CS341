@@ -14,7 +14,7 @@ import EditPromo from '../components/AdminPage/EditPromo_Components.js'
 //Imported Actions
 import {activatePromotion} from '../actions/activatePromotion.js'
 import {changeAdminFlux} from '../actions/changeFlux.js'
-import {setPromoPrice} from '../actions/setPromoPrice.js'
+//import {setPromoPrice} from '../actions/setPromoPrice.js'
 
 //Accesses storage.
 const mapStateToProps = (state) =>{
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		changeAdminFlux: changeAdminFlux,
 		activatePromotion: activatePromotion,
-		setPromoPrice: setPromoPrice,
+		//setPromoPrice: setPromoPrice,
 	}, dispatch);
 }
 

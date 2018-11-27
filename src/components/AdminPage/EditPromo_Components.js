@@ -16,24 +16,31 @@ import RangeCalendar from 'rc-calendar/lib/RangeCalendar';
 const EditPromo_Components = ({props}) => {
 	function onClick (event, props, page) {
      	event.preventDefault();
-      	props.activatePromotion({
-  					code: page.promoCode.current.value,
-					startDate: page.promoCalendar.current.state.value[0],
-					endDate: page.promoCalendar.current.state.value[1]
-		})
 
-      	const percent = parseFloat(page.promoPercent.current.value) / 100;
-      	var listOfProds = props.items.slice();
+		const percent = parseFloat(page.promoPercent.current.value) / 100;
+		const code = page.promoCode.current.value
+		const startDate = page.promoCalendar.current.state.value[0].toDate();
+		const endDate = page.promoCalendar.current.state.value[1].toDate();
+      	
+		var promo = {
+			promoPrice: percent,
+			promoCode: code,
+			promoStart: startDate,
+			promoEnd: endDate,
+		}
 
-      	//Sets PromoPrice
+      	/*var listOfProds = props.items.slice();
       	listOfProds.map((item, i) => {
       		const p = parseFloat(item.price);
-      		console.log(p)
-			return (
-				item.promoPrice = (p - (p * percent))
-			);
-		});
-		props.setPromoPrice(listOfProds);
+      		const price = (p - (p * percent));
+      		item.promoPrice = price;
+	      	item.promoCode = code;
+	      	item.promoStart = startDate;
+	      	item.promoEnd = endDate;
+      		return item;
+		});*/
+		
+      	props.activatePromotion(promo);
     }
 	return (
 		<Modal.Dialog bsSize="lg">

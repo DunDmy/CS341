@@ -64,8 +64,13 @@ const clearCartFailure = error => {
 /************************************************************************/	
 
 export const changeQuantity = (updatedItems) => {
-	console.log(updatedItems);
-	return dispatch => {
+	//console.log(updatedItems);
+	return {
+		type: "CHANGE_QUANTITY_SUCCESS",
+		payload: updatedItems
+	};
+	//TODO: Hook up to backend.
+	/*return dispatch => {
 		axios
 			.post('URL',
 				updatedItems,
@@ -76,7 +81,7 @@ export const changeQuantity = (updatedItems) => {
 			.catch (err => {
 				dispatch(changeQuantityFailure(err.message));
 			})
-	};
+	};*/
 };
 
 const changeQuantitySuccess = updatedItems => {

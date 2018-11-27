@@ -30,13 +30,13 @@ const mapStateToProps = (state) =>{
 
 class App extends Component {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     //return(<ShoppingCart></ShoppingCart>);
     //return(<AdminPage></AdminPage>);
     //return(<Billing></Billing>)
     //return(<Checkout></Checkout>);
     //return(<LoginPage></LoginPage>);
-    return(this.renderAdmin())
+    //return(this.renderAdmin())
     if(this.props.user.isAdmin) { return(this.renderAdmin()); }
     switch (this.props.app.page) {
       case 'w':

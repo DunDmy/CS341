@@ -9,6 +9,13 @@ import axios from 'axios';
 
 export const addToCart = (item) => {
 	console.log(item);
+	return {
+		type: "ADD_TO_CART_SUCCESS",
+		payload: item
+	};
+	
+	//TODO: Hook up addToCart to database.
+	/*
 	return dispatch => {
 		axios
 			.post('URL',
@@ -20,7 +27,8 @@ export const addToCart = (item) => {
 			.catch (err => {
 				dispatch(addToCartFailure(err.message));
 			})
-		};
+	};
+	*/
 };
 
 const addToCartSuccess = item => {

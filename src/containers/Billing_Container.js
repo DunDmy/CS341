@@ -25,7 +25,7 @@ const mapStateToProps = (state) =>{
 		item: state.activeItem,
 		flux: state.shoppingPageStates,
 		cart: state.cart,
-		items: state.searchProd.product
+		items: state.cart.items,
 	}
 }
 

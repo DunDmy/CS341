@@ -17,15 +17,39 @@ export const searchProd = (state = initialState, action={}) =>{
 		return element.id === action.payload[0].PROD_ID;
 	}
 
-	console.log(action)
 	switch(action.type){
 		case "CHANGE_SEARCH_FIELD":
 			return {...state, searchField: action.payload};
 /************************************************************************/	
-		case "SET_PROMO_PRICE_SUCCESS":
-			return {...state, product: action.payload};
+		case "ACTIVATE_PROMOTION_SUCCESS":
+			var a = action.payload.map((item, i) => {
+				return {
+					"id": item.PROD_ID,
+					"prod": item.PROD_NAME,
+					"desc": item.PROD_DESC,
+					"price": item.PROD_PRICE,
 
-		case "SET_PROMO_PRICE_FAILURE":
+					"sale": item.ON_SALE,
+					"saleStart": item.SALE_START_DATE,
+					"saleEnd": item.SALE_END_DATE,
+					"salePrice": item.SALE_PRICE,
+
+					"promo": item.IS_PROMO,
+					"promoPrice": item.PROMO_PRICE,
+					"promoCode": item.PROMO_CODE,
+					"promoStart": item.PROMO_START_DATE,
+					"promoEnd": item.PROMO_END_DATE,
+					
+					"numAvail": 1, //TODO: ADD
+					"image": "http://tachyons.io/img/avatar-mrmrs.jpg",
+					"quantity": 1, //TODO: ADD
+				}
+			});
+
+			console.log(a);
+			return {...state, product: a};
+
+		case "ACTIVATE_PROMOTION_FAILURE":
 			console.log("Error: ", action.payload);
 			return state;
 /************************************************************************/	

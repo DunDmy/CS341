@@ -1,18 +1,18 @@
 /* Author: Austin Vanburen
  * Description: Sends promotion dates and code to the database.
- * Parameters: promotion = {promoCode, StartMoment, EndMoment}
- * Connected Reducers: Pricing_Reducer
+ * Parameters: listOfProds
+ * Connected Reducers: Search_Reducer
  * Connected to Database: TRUE
  */
 
 import axios from 'axios';
 
-export const activatePromotion = (promotion) => {
-	console.log(promotion)
+export const activatePromotion = (promo) => {
+	console.log(promo)
 	return dispatch => {
 		axios
-			.post('URL',
-				promotion,
+			.post('http://localhost:3000/shoppingcart/admin/updatePromo/',
+				promo,
 			)
 			.then(res => {
 				dispatch(activatePromotionSuccess(res.data));
@@ -23,10 +23,10 @@ export const activatePromotion = (promotion) => {
 		};
 };
 
-const activatePromotionSuccess = promotion => {
+const activatePromotionSuccess = listOfProds => {
 	return {
 		type: "ACTIVATE_PROMOTION_SUCCESS",
-		payload: promotion
+		payload: listOfProds
 	};
 };
 

@@ -24,7 +24,7 @@ const renderComponent = ({props}) => {
 		return (
 			<div>
 				{renderListofItemsEditable({props})}
-				<Button onClick={() => save(props)}>Save</Button>
+				<Button onClick={(event) => save(event, props)}>Save</Button>
 			</div>
 		);
 	} else {
@@ -64,30 +64,23 @@ const renderListofItemsEditable = ({props}) => {
 			</li>
 			)
 		});
-
 }
 
-/*
+function save(event, props) {
+	event.preventDefault();
 
-<input id={"Quantity" + items.id} className="input-reset ba b--black-20 pa2 mb2 db w-30" type="number" aria-describedby="name-desc"
-						    onChange={() => props.changeQuantity(
-						    	[items.id, parseInt(document.getElementById("Quantity" + items.id).value, 10)]
-						  	)}
-						    ></input>
-						    */
-
-function save(props) {
- 	var updatedItems = props.items.map((items, i) => {
-		if (items.numAvail >= parseInt(document.getElementById("Quantity" + items.id).value, 10)) {
-			items.quantity = parseInt(document.getElementById("Quantity" + items.id).value, 10);
-		} else {
-			console.log("Error: quantity exceeds number of available products for product ", items.prodName);
-		}
-		return items;
+	//Updates Quantities
+ 	var updatedItems = props.items.map((item, i) => {
+ 		item.quantity = parseInt(document.getElementById("Quantity" + item.id).value, 10);
+		return item;
  	}); 
 
- 	props.changeToEditable(false)
+ 	//Filters out all products with 0 quantity. Removes from shopping cart.
+ 	updatedItems = updatedItems.filter(item => item.quantity > 0);
+
+ 	//Commits Changes
  	props.changeQuantity(updatedItems);
+ 	props.changeToEditable(false)
  	return;
 };
 
