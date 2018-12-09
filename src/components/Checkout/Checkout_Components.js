@@ -1,4 +1,4 @@
-/* Author: Austin Vanburen
+/* Author: Austin Vanburen, Dmytro Dundukov
  * Last Edited: 11/6/18
  * Status: Complete.
  * Description: Component which renders checkout information. Information includes
@@ -9,11 +9,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+//Improting Material-UI lib for Sales Tax comp
+//import DropDownMenu from 'material-ui/DropDownMenu';
+//import MenuItem from 'material-ui/MenuItem';
 //Imported omponents
-import {Grid, Col, Row, Image, Button, Panel, Thumbnail, Modal, FormControl, FormGroup,Form} from 'react-bootstrap';
+import {Grid, SplitButton, MenuItem, Col, Row, Image, Button, Panel, Thumbnail, Modal, FormControl, FormGroup,Form} from 'react-bootstrap';
 //import ScrollArea from 'react-scrollbar';
 
-const Checkout_Components = ({props}) => {
+const Checkout_Components = ({props, state, target}) => {
+	console.log("INSIDE CHECKOUT");
+	console.log(props);
+	console.log(target);
+
+	const item = [];
+	for( let i = 0; i < 100; i++){
+		item.push(<MenuItem value={i} key={i} primaryText={'Item ${i}'} />);
+	}
+
+
+	function handleChange (event, index, value) {
+		this.setState({value});}
 	return (
 		<Modal.Dialog autoFocus={true} backdrop="static" enforceFocus={true}>
 			<Modal.Header>
@@ -83,12 +98,15 @@ const Checkout_Components = ({props}) => {
 		      					State:
 		    				</Col>
 		   					<Col md={6}>
-		    					<FormControl 
-			    					type="text" 
-			    					placeholder="" 
-			    					defaultValue=""
-			    					inputRef={this.stateForm = React.createRef()}
-		    					/>
+		   						<SplitButton
+								      title={state.title}
+								      id={`split-button-basic`}
+								      //onSelect={function(evnt){target(evnt)}}
+								      onSelect={function(evnt){taxAndStateUpdate(evnt, target)}}
+								      //onSelect={function(evt){taxesCost(props.tax[i].tax)}}
+							    >
+		    				    	{createListItems(props, state)}
+		    				     </SplitButton>
 		    				</Col>
 						</FormGroup>
 
@@ -126,14 +144,20 @@ const Checkout_Components = ({props}) => {
 	);
 }
 
+function taxAndStateUpdate(event, target){
+	target(event);
+	taxesCost(event);
+
+}
+
 function test(event, props, page) {
 		event.preventDefault();
 
 		//Evalates promoCode.
 		var enteredPromo = page.promoForm.current.value;
 		var promo = props.items[0].promoCode;
-		console.log(enteredPromo);
-		console.log(promo);
+		//console.log(enteredPromo);
+		//console.log(promo);
 
 		var enablePromo = false;
 		if (promo === enteredPromo) { //TODO: CHECK for date.
@@ -157,9 +181,9 @@ function test(event, props, page) {
 			taxesCost: taxesCost(props),
 			productCost: totalProductCost(props, enablePromo),
 			orderTotal: 0.00,
-			savingsTotal: savingsTotal(props),
+			savingsTotal: savingsTotal(props, enablePromo),
 		}
-		costInfo.orderTotal = costInfo.shippingCost + costInfo.taxesCost + costInfo.productCost;
+		costInfo.orderTotal = costInfo.shippingCost + (costInfo.productCost * costInfo.taxesCost) + costInfo.productCost;
 		props.setCosts(costInfo);
 
 		props.changeFlux('b');
@@ -171,13 +195,13 @@ function shippingCost(shippingInfo) {
 }
 
 function taxesCost(props) {
-	
-	return 1.00;
+	console.log(props);
+	return props;
 }
 
 function totalProductCost(props, promoEnabled) {
 	const itemsInCart = props.items//.filter(greaterThan0);
-	console.log(props.cart)
+	//console.log(props.cart)
 	//console.log("PromoValid?", props.cart.promoEnabled)
 
 	var tpp = 0.00;
@@ -202,13 +226,45 @@ function totalProductCost(props, promoEnabled) {
 	return tpp;
 }
 
-function savingsTotal(props) {
-	return 0;
+function savingsTotal(props, promoEnabled) {
+	const itemsInCart = props.items//.filter(greaterThan0);
+	//console.log(props.cart)
+	//console.log("PromoValid?", props.cart.promoEnabled)
+
+	var savings = 0.00;
+	itemsInCart.map((item, i) => {
+		const quantity = item.quantity;
+
+		//Sale ITem
+		if (item.sale) {
+			savings += (item.price - item.salePrice) * quantity;
+		//Promo Item
+		} else if (promoEnabled && item.promo) { //TODO: Check for valid promo date.
+			savings += (item.price * item.promoPrice) * quantity;
+		}
+
+		return item;
+	})
+	return savings;
 }
 
 const greaterThan0 = (element, index, array) => {
 	return element.quantity > 0;
 
 }
+
+function createListItems(props, state, target){
+	console.log(props);
+			return props.tax.map((product, i) => {
+			 //console.log(this.props.product.prod);
+			 //console.log(this.props.searchField);
+			return(
+					<MenuItem eventKey={props.tax[i].state}>{props.tax[i].state}</MenuItem>
+				)
+		});
+		
+	}
+
+
 
 export default Checkout_Components;

@@ -21,7 +21,7 @@ export const addBlankItem = () => {
 				"salePrice": 10.50,
 
 				"promo": false,
-				"promoPrice": 10.50,
+				"promoPrice": 0,
 				"promoCode": "NOCODE",
 				"promoStart": null,
 				"promoEnd": null,
@@ -41,6 +41,7 @@ export const addBlankItem = () => {
 
 //Item retrieved from database must contain an updated id, such that there are no duplicating ids..
 const addBlankItemSuccess = item => {
+	console.log(item)
 	return {
 		type: "ADD_BLANK_ITEM_SUCCESS",
 		payload: item

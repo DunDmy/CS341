@@ -146,7 +146,7 @@ export const searchProd = (state = initialState, action={}) =>{
 				"salePrice": 10.50,
 
 				"promo": false,
-				"promoPrice": 10.50,
+				"promoPrice": 0,
 				"promoCode": "NOCODE",
 				"promoStart": null,
 				"promoEnd": null,
@@ -164,11 +164,12 @@ export const searchProd = (state = initialState, action={}) =>{
 			return state;
 /************************************************************************/	
 		case "DELETE_ITEM_SUCCESS":
-			var i = state.product.findIndex(evalID);
+			var i = state.product.findIndex(item => item.id === action.payload);
 			if (i == -1) {	console.log("Error: Item not found."); return state; }
  			
  			//Clones array from state.
-			var a = state.product.slice(i, 1);
+			var a = state.product.slice();
+			a.splice(i, 1);
 			return {...state, product: a};
 
 		case "DELETE_ITEM_FAILURE":

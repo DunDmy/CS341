@@ -28,11 +28,14 @@ const initialState = {
 
 //Reducer
 export default function (state=initialState, action) {
+	console.log("ACTIVE ITEM REDUCER");
+	console.log(action);
 	switch(action.type) {
 		case "ADD_BLANK_ITEM":
 			return action.payload;
 			break;
 		case "UPDATE_ACTIVE_ITEM":
+			console.log("Im in here!");
 			return Object.assign({}, state, action.payload);
 			break;
 		default:

@@ -1,4 +1,4 @@
-/* Author: Austin Vanburen
+/* Author: Austin Vanburen, Dmytro Dundukov
  * Last Edited: 11/6/18
  * Status: Complete
  * Description: Component which renders credit card and price information.
@@ -19,7 +19,7 @@ const Checkout_Components = ({props}) => {
 				<Modal.Title>Checkout</Modal.Title>
 				<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeFlux('e')}>X</Button>
 			</Modal.Header>
-			<Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
+			<Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
 				<div>{renderListofItems(props)}</div>
 				<Grid>
 					<Row>
@@ -35,7 +35,7 @@ const Checkout_Components = ({props}) => {
 						<h3>Order Total: ${props.cart.totalCost}</h3>
 					</Row>
 					<Row>
-						<p>Savings: ${props.cart.totalCost}</p>
+						<p>Savings: ${props.cart.savingsTotal}</p>
 					</Row>
 					<Row>
 						<CreditCardInput
@@ -84,7 +84,11 @@ function confirm(event, props, page) {
 	console.log(valid)
 	console.log(card)
 
-	props.setBilling(card);
+	//props.setBilling(card);
+	console.log("PURCHASED ITEM");
+	console.log("______________________");
+	console.log(props.items[0]);
+	props.setBilling(props.items[0], props.user);//TODO: you can buy only one item at a time
 	//Items = items in cart.
 	props.reduceItemStock(props.items);
 	props.clearCart();

@@ -43,7 +43,7 @@ class WelcomePage extends Component {
 
 	render() {
 		return (
-			<Grid>
+			<Grid align="center">
 			  	<Row className="show-grid">
 			    	<Col xs={12} md={8}>
 			    		<WelcomeBanner></WelcomeBanner>
@@ -56,12 +56,12 @@ class WelcomePage extends Component {
 			  	</Row>
 			  	<Row className="show-grid">
 			    	<Col xs={12} md={8}>
-			    		<p1>SRG Buttons</p1>
+			    		<p>SRG Buttons</p>
 			    	</Col>
 			  	</Row>
 			  	<Row className="show-grid">
 			    	<Col xs={12} md={8}>
-			    		<p1>About Info</p1>
+			    		<p>About Info</p>
 			    	</Col>
 			  	</Row>
 			</Grid>

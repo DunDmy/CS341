@@ -22,6 +22,8 @@ import ItemInfo from './ItemInfo_Container.js';
 import Checkout from './Checkout_Container.js';
 import Billing from './Billing_Container.js';
 import Review from './Review_Container.js';
+import Sales from './Sales_Container';
+import History from './History_Container';
 
 //Imported Actions
 import {populateItems} from '../actions/populateItems.js'
@@ -58,6 +60,12 @@ class ShoppingPage extends Component {
 			    	<Col xs={12} md={6}>
 			    		<Search></Search>
 			    	</Col>
+			    	<Col xs={12} md={12}>
+			    		<Sales></Sales>
+			    	</Col>
+			    	<Col xs={12} md={12}>
+			    		<History></History>
+			    	</Col>
 			    	<Col xs={12} md={10}>
 			    		{this.renderFlux()}
 			    	</Col>
@@ -67,7 +75,7 @@ class ShoppingPage extends Component {
 			  	</Row>
 			  	<Row className="show-grid">
 			    	<Col xs={12} md={8}>
-			    		<p1>Promotional Stuff</p1>
+			    		<p>Promotional Stuff</p>
 			    	</Col>
 			  	</Row>
 			</Grid>

@@ -23,6 +23,7 @@ import {clearCart} from '../actions/ShoppingCart_Action.js'
 const mapStateToProps = (state) =>{
 	return {
 		item: state.activeItem,
+		user: state.activeUser,
 		flux: state.shoppingPageStates,
 		cart: state.cart,
 		items: state.cart.items,

@@ -27,11 +27,21 @@ const initialState = {
 	zip: "NA",
 
 	//Item Information within Cart
-	items : []
+	items : [],
+	tax: [
+		{
+			"id": 0,
+			"state": "Wisconsin",
+			"tax": 0.06
+		}
+	]
 }
 
 //Reducer
 export default function (state=initialState, action) {
+	console.log("INSIDE CHECKOUT RED");
+	console.log(state);
+	console.log(action);
 	function evalID (element) {
 		return element.id === action.payload[0];
 	};
@@ -62,6 +72,18 @@ export default function (state=initialState, action) {
 				state: action.payload.state,
 				zip: action.payload.zip,
 			}
+
+		case "STATE_TAX_SUCCESS":
+		console.log(action.payload.data);
+		var a = action.payload.data.map((data, i) => {
+				return {
+					"id": data.STATE_ID,
+					"state": data.STATE_NAME,
+					"tax": data.STATE_TAX
+				}
+			});
+			console.log(a);
+			return {...state, tax:a};
 
 		case "SHOPPINGCART_EDIT":
 			return {...state, editable: action.payload};

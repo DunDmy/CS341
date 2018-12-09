@@ -10,7 +10,7 @@ import {bindActionCreators} from 'redux';
 import axios from 'axios';
 
 //Bootstrap Components
-import {Grid, Col, Row, Image, Button, Panel, Thumbnail} from 'react-bootstrap';
+import {Grid, Col, Row, Image, Button, Panel, Thumbnail, ButtonGroup, PageHeader} from 'react-bootstrap';
 import Calendar from 'rc-calendar';
 
 //Imported Components
@@ -18,6 +18,7 @@ import AdminSearch from './AdminSearch_Container'
 import EditItemInfo from './EditItemInfo_Container'
 import EditPromo from './EditPromo_Container'
 import EditSale from './EditSale_Container'
+import WelcomeBanner from './WelcomeBanner_Container.js';
 
 //Imported Actions
 import {addBlankItem} from '../actions/addBlankItem.js'
@@ -52,23 +53,25 @@ class AdminPage extends Component {
 
 	render() {
 		return (    
-			<div>
+			<div align="center">
 				{this.renderFlux()}
+				<WelcomeBanner></WelcomeBanner>
 				<AdminSearch></AdminSearch>
-				<Button bsSize="small" onClick={(event) => this.onClick(event)}>Add Blank Item</Button>
-				<Button bsSize="small" onClick={this.props.onFluxChange}>Set Promotional</Button>
-				<Button bsSize="small" onClick={this.props.onFluxSaleChange}>Set Sale</Button>
+				<ButtonGroup align="center">
+					<Button bsSize="small" onClick={(event) => this.onClick(event)}>Add Blank Item</Button>
+					<Button bsSize="small" onClick={this.props.onFluxChange}>Set Promotional</Button>
+					<Button bsSize="small" onClick={this.props.onFluxSaleChange}>Set Sale</Button>
+				</ButtonGroup>
 			</div>
 		);
 	}
 
 	onClick(event) {
-	      event.preventDefault();
-	      this.props.addItem();
+	    event.preventDefault();
+	    this.props.addItem();
     }
 
 	renderFlux() {
-		console.log(this.props.adminStates.flux);
 		if (this.props.adminStates.flux === 's') {
 			return (<EditSale></EditSale>);
 		} else if (this.props.adminStates.flux === 'p') {

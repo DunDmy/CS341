@@ -1,47 +1,173 @@
 /* Author: Austin Vanburen
  * Last Edited:
- * Status: Incomplete. TODO:
+ * Description: Components for the Edit Item Info Pane within the admin console.
  * 
  */
 
 //Essentials
 import React from 'react';
+import axios from 'axios';
 
 //Bootstrap components
-import {Grid, Col, Row, Image, Button, Panel, Thumbnail, Modal, FormGroup, FormControl, Form, ControlLabel} from 'react-bootstrap';
+import {Grid, Col, Row, Image, Button, Panel, Thumbnail, Modal, FormGroup, FormControl, Form, ControlLabel, ButtonGroup} from 'react-bootstrap';
 //import ScrollArea from 'react-scrollbar';
 
 
 
 const ItemInfo_Components = ({props}) => {
-	function onClick (event){
-	    event.preventDefault();
-	   //console.log(document.getElementById("item-promo").checked);
-
-	    props.saveItem({
-  					id: props.item.id,
-					prod: document.getElementById("item-name").value,
-					price: document.getElementById("item-price").value,
-					desc: document.getElementById("item-description").value,
-					image: document.getElementById("image-path").value,
-					promo: document.getElementById("item-promo").checked,
-					sale: document.getElementById("item-sale").checked,
-					salePrice: document.getElementById("item-saleprice").value,
-					//quantity: props.item.quantity,
-					numAvail: document.getElementById("item-stock").value
-		})
-	     
+	function removeItem(event) {
+    	event.preventDefault()
+		props.deleteItem(props.item.id)
+		props.deleteItemSuccess(props.item.id);
+		props.changeAdminFlux('e')
     }
+
+	function onClick(event, page) {
+	    event.preventDefault()
+	    props.saveItem({
+			id: props.item.id,
+			prod: page.nameForm.current.value,
+			price: page.priceForm.current.value,
+			desc: document.getElementById("item-description").value,
+			image: page.imagePathForm.current.value,
+			promo: page.promoForm.current.checked,
+			sale: page.saleForm.current.checked,
+			salePrice: page.salePriceForm.current.value,
+			numAvail: props.item.numAvail,
+		}) 
+    }
+
 	return (
-		<Modal.Dialog bsSize="lg">
+		<Modal.Dialog>
 			<Modal.Header>
 				<span>
 		    		<Modal.Title>EDITING ITEM</Modal.Title>
 		    	</span>
-		    	<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeAdminFlux('e')}>X</Button>
+		    	<span align="right">
+		    		<Button align="right" bsStyle="danger" bsSize="xsmall" onClick={() => props.changeAdminFlux('e')}>X</Button>
+				</span>
 			</Modal.Header>
-			<Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
-		  			<Row className="show-grid">
+			<Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
+
+
+				<Form horizontal>
+					<Row>
+						<Col md={3} lg={3}>
+		     				<img className="w2 h2 w3-ns h3-ns br-100" src={props.item.image}/>
+						</Col>
+					</Row>
+					<FormGroup controlId="">
+						<Col md={3} lg={3}>
+		      				Image Path:
+		    			</Col>
+		   				<Col md={6} lg={6} valign="middle">
+		    				<FormControl 
+			    				type="text" 
+			    				defaultValue={props.item.image}
+			    				inputRef={this.imagePathForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+
+					<FormGroup controlId="">
+						<Col md={3}>
+		      				Item Name:
+		    			</Col>
+		   				<Col md={6}>
+		    				<FormControl 
+			    				type="text" 
+			    				defaultValue={props.item.prod}
+			    				inputRef={this.nameForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+
+					<FormGroup controlId="">
+		    			<Col md={3}>
+		      				Item Price:
+		    			</Col>
+		   				<Col md={6}>
+		    				<FormControl 
+			    				type="text" 
+			    				defaultValue={props.item.price}
+			    				inputRef={this.priceForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+
+					<FormGroup controlId="">
+						<Col md={3}>
+		      				Promotional:
+		    			</Col>
+		   				<Col md={3}>
+		    				<FormControl 
+		    					bsSize="small"
+			    				type="checkbox" 
+			    				defaultChecked={props.item.promo}
+			    				inputRef={this.promoForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+					<FormGroup controlId="">
+						<Col md={3} lg={3}>
+		      				Promotion Price:
+		    			</Col>
+		   				<Col md={6}>
+		    				<FormControl 
+			    				type="text"
+			    				readOnly={true} 
+			    				defaultValue={props.item.price - (props.item.price * props.item.promoPrice)}
+			    				inputRef={this.promoPriceForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+
+					<FormGroup controlId="">
+						<Col md={3}>
+		      				Sale:
+		    			</Col>
+		   				<Col md={3}>
+		    				<FormControl 
+			    				type="checkbox" 
+			    				defaultChecked={props.item.sale}
+			    				inputRef={this.saleForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+					<FormGroup controlId="">
+						<Col md={3}>
+		      				Sale Price:
+		    			</Col>
+		   				<Col md={6}>
+		    				<FormControl 
+			    				type="text" 
+			    				defaultValue={props.item.salePrice}
+			    				inputRef={this.salePriceForm = React.createRef()}
+		    				/>
+		    			</Col>
+					</FormGroup>
+
+					<FormGroup controlId="">
+						<Col md={3}>
+		      				Item Description:
+		    			</Col>
+		   				<Col md={6}>
+		    				<textarea id="item-description" name="item-description" className="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2" 
+					    		rows="9" aria-describedby="comment-desc" defaultValue={props.item.desc}></textarea>
+		    			</Col>
+					</FormGroup>
+				</Form>
+				<span>
+					<Button justified="true" bsSize="small" onClick={(event) => removeItem(event)}>Delete Item</Button>
+				</span>	
+			</Modal.Body>
+			<Button justified="true" bsSize="small" onClick={(event) => onClick(event, this)}>Save</Button>
+		</Modal.Dialog>
+	);
+}
+
+/*
+<Row className="show-grid">
 		  				<Col md={3}>
 		     				<img className="w2 h2 w3-ns h3-ns br-100" src={props.item.image}/>
 		    			</Col>
@@ -83,12 +209,12 @@ const ItemInfo_Components = ({props}) => {
 		  			<Row>
 		  				<Col md={2}>
 		    				<label class="db fw6 lh-copy f6" for="item-promoprice">Promo Price:</label>
-		    				<input class="pa2 input-reset ba bg-transparent hover-bg-black hover-black w-50" contenteditable="true" type="text" name="item-promoprice"
+		    				<input class="pa2 input-reset ba bg-transparent hover-bg-black hover-black w-50" contentEditable="true" type="text" name="item-promoprice"
 		    				defaultValue={props.item.promoPrice} id="item-promoprice"></input>
 			   			</Col>
 			   			<Col md={2}>
 		    				<label class="db fw6 lh-copy f6" for="item-saleprice">Sale Price:</label>
-		    				<input class="pa2 input-reset ba bg-transparent hover-bg-black hover-black w-50" contenteditable="true" type="text" name="item-saleprice"
+		    				<input class="pa2 input-reset ba bg-transparent hover-bg-black hover-black w-50" contentEditable="true" type="text" name="item-saleprice"
 		    				defaultValue={props.item.salePrice} id="item-saleprice"></input>
 			   			</Col>
 						<Col md={2}>
@@ -111,30 +237,10 @@ const ItemInfo_Components = ({props}) => {
 							</div>
 						</form>
 						<span>
-							<Button bsSize="small" onClick={props.deleteItem}>Delete Item</Button>
+							<Button bsSize="small" onClick={(event) => removeItem(event)}>Delete Item</Button>
 						</span>
 		  			</Row>
-				
-			</Modal.Body>
-			<Modal.Footer>
-				<Button bsSize="small" onClick={(event) => onClick(event)}>Save</Button>
-			</Modal.Footer>
-		</Modal.Dialog>
-	);
-}
 
-/*const fetchItemInfo = ({item}) => {
-	//item.id;
-	item.prod: document.getElementById("item-name").value;
-	item.price: document.getElementById("item-price").value;
-	//item.type;
-	item.desc: document.getElementById("item-description").value;
-	item.image: document.getElementById("item-path").value;
-	item.promo: document.getElementById("item-promo").value;
-	//quantity: 1,
-	item.numAvail: document.getElementById("item-stock").value;
-	console.log(item);
-	return (item);
-}*/
+		  			*/
 
 export default ItemInfo_Components;

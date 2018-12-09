@@ -9,6 +9,8 @@ import  {combineReducers} from 'redux';
 import {searchProd} from './Search_Reducer';
 import {signIn} from './SignIn_Reducer';
 import {register} from './Register_Reducer';
+import {onSales} from './On_Sale_Reducer.js';
+import {inHistory} from './In_History_Reducer.js';
 
 //Imported Reducers
 import ActiveItem from './ActiveItem_Reducer.js';
@@ -21,7 +23,7 @@ import AdminPage from './AdminPage_Reducer.js';
 import Pricing from './Pricing_Reducer.js';
 
 // const that combines all redusers. Add reducers when needed
-export const allReducers =  combineReducers({searchProd, signIn, register, 
+export const allReducers =  combineReducers({searchProd, signIn, register, onSales, inHistory,
 	adminPageStates: AdminPage,
 	userInfo: User_Info,
 	activeUser: ActiveUser,

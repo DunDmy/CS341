@@ -57,13 +57,37 @@ class ListOfProd extends React.Component {
 					    <span className="f6 db black-70">{product.prod}</span>
 					    <span className="f6 db black-70">{product.desc}</span>
 					  </div>
-					  <div>
-					    <a className="f6 db black-70">{product.price}</a>
-					  </div>
+					  {this.renderPrice(product)}
 					</li>
 				)
 		});
 		
+	}
+
+	renderPrice(product) {
+		if(product.sale) {
+			return (
+				<div>
+					<strike><span className="f6 db black-70">{product.price}</span></strike>
+					<span className="f6 db black-70">{product.salePrice}</span>
+					<span className="f6 db black-70">...on sale</span>
+				</div>
+			);
+		} else if(product.promo) { //TODO: MAKE IT SO IT CHECKS FOR WITHIN THE DATE.
+			return (
+				<div>
+					<strike><span className="f6 db black-70">{product.price}</span></strike>
+					<span className="f6 db black-70">{product.price - (product.price * product.promoPrice)}</span>
+					<span className="f6 db black-70">...with promo-code: {product.promoCode}</span>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<span className="f6 db black-70">{product.price}</span>
+				</div>
+			);
+		}
 	}
 
 	render(){

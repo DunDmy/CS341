@@ -16,32 +16,46 @@ const ItemInfo_Components = ({props}) => {
 		props.addToCart(props.item);
 	}
 
+	function renderPrice(product) {
+		if(product.sale) {
+			return (
+				<div>
+					<strike><span className="f6 db black-70">${product.price}</span></strike>
+					<span className="f6 db black-70">${product.salePrice}</span>
+					<span className="f6 db black-70">...on sale</span>
+				</div>
+			);
+		} else if(product.promo) { //TODO: MAKE IT SO IT CHECKS FOR WITHIN THE DATE.
+			return (
+				<div>
+					<strike><span className="f6 db black-70">${product.price}</span></strike>
+					<span className="f6 db black-70">${product.price - (product.price * product.promoPrice)}</span>
+					<span className="f6 db black-70">...with promo-code: {product.promoCode}</span>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<span className="f6 db black-70">${product.price}</span>
+				</div>
+			);
+		}
+	}
+
 	return (
-		<Modal.Dialog>
+		<Modal.Dialog bsSize="small">
 			<Modal.Header>
-				<Modal.Title>{props.item.prod}</Modal.Title>
 				<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeFlux('e')}>X</Button>
 			</Modal.Header>
-			<Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
-				<Grid>
-		  			<Row className="show-grid">
-		  				<Col xs={6} md={3}>
-		     				<img className="w2 h2 w3-ns h3-ns br-100" src={props.item.image}/>
-		    			</Col>
-		  			</Row>
-		  			<Row className="show-grid">
-		    			<Col xs={6} md={3}>
-		      				<p>{props.item.description}</p>
-			   			</Col>
-		  			</Row>
-		  			<Row className="show-grid">
-			   			<Col xs={6} md={3}>
-			      			<h5>{props.item.price}</h5>
-			    		</Col>
-		  			</Row>
-				</Grid>
+			<Modal.Body>
+				<div align="center">
+					<span><img className="w2 h2 w3-ns h3-ns br-100" src={props.item.image}/>
+					<h1>{props.item.prod}</h1></span>
+					<div>{props.item.desc}</div>
+					{renderPrice(props.item)}
+				</div>
 			</Modal.Body>
-			<Button bsSize="small" onClick={(event) => onClick(event, props)}>Add to Cart</Button>
+			<Button justified="true" bsSize="small" onClick={(event) => onClick(event, props)}>Add to Cart</Button>
 		</Modal.Dialog>
 	);
 }

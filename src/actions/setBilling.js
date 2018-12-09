@@ -1,4 +1,4 @@
-/* Author: Austin Vanburen
+/* Author: Austin Vanburen, Dmytro Dundukov
  * Description: Sends credit card information to database to be evaluated.
  * Parameters: card = {num, expiry, cvc, zip}
  * Connected Reducers: ActiveUser_Reducer
@@ -7,13 +7,21 @@
 
 import axios from 'axios';
 
-export const setBilling = (card) => {
-	console.log(card)
+export const setBilling = (card, user) => {
+	console.log('CONFIRM--------------------------------->');
+	console.log(card);
+	console.log(user);
+	var date = new Date();
+	var currentDate = new Date();
+	var date = currentDate.getDate();
+	var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+	var year = currentDate.getFullYear();
+	var dateString = date + "-" +(month + 1) + "-" + year;
+	var url = 'http://localhost:3000/shoppingpage/shoppingcart/' + user.id + '/' + card.id + '/' + dateString + '/' + card.quantity;
+	console.log(url);
 	return dispatch => {
 		axios
-			.post('URL',
-				card,
-			)
+			.put(url)
 			.then(res => {
 				dispatch(setBillingSuccess(res.data));
 			})

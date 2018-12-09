@@ -1,21 +1,19 @@
 /* Author: Austin Vanburen
  * Description: Removes the given product from database and reducer.
- * Parameters: item
+ * Parameters: id
  * Connected Reducers: Search_Reducer
  * Connected to Database: True
  */
 
 import axios from 'axios';
 
-export const deleteItem = (item) => {
-	console.log(item);
+export const deleteItem = (id) => {
+	const url = 'http://localhost:3000/shoppingcart/admin/remove/' + id;
 	return dispatch => {
 		axios
-			.post('URL',
-				item,
-			)
+			.delete(url)
 			.then(res => {
-				dispatch(deleteItemSuccess(res.data));
+				//dispatch(deleteItemSuccess(res.data));
 			})
 			.catch (err => {
 				dispatch(deleteItemFailure(err.message));
@@ -23,10 +21,10 @@ export const deleteItem = (item) => {
 		};
 };
 
-const deleteItemSuccess = item => {
+export const deleteItemSuccess = id => {
 	return {
 		type: "DELETE_ITEM_SUCCESS",
-		payload: item
+		payload: id
 	};
 };
 

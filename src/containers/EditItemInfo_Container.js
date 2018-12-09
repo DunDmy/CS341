@@ -15,6 +15,8 @@ import EditItemInfo from '../components/AdminPage/EditItemInfo_Components.js'
 import {saveItem} from '../actions/saveItem.js'
 import {changeAdminFlux} from '../actions/changeFlux.js'
 import {deleteItem} from '../actions/deleteItem.js'
+import {deleteItemSuccess} from '../actions/deleteItem.js'
+import {populateItems} from '../actions/populateItems.js'
 
 //Accesses storage.
 const mapStateToProps = (state) =>{
@@ -29,14 +31,15 @@ const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		saveItem: saveItem, 
 		changeAdminFlux: changeAdminFlux,
-		deleteItem: deleteItem
+		deleteItem: deleteItem,
+		deleteItemSuccess: deleteItemSuccess,
+		populateItems: (res) => populateItems(res),
 	}, dispatch);
 	
 }
 
 class EditPromo_Container extends Component {
 	render() {
-		console.log(this.props.item);
 		return (
 			<EditItemInfo props={this.props}></EditItemInfo>
 		);
