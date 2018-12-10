@@ -17,6 +17,29 @@ const initialState = {
 //Reducer
 export default function (state=initialState, action) {
 	switch(action.type) {
+		case "CHANGING_USER_DETAILS":
+			console.log(action.payload)
+			/*return {...state,
+				//id: action.payload[0].USER_ID,
+				userEmail: action.payload[0].USER_EMAIL,
+				firstName: action.payload[0].USER_FNAME,
+				lastName: action.payload[0].USER_LNAME,
+				isGuest: false,
+				isAdmin: action.payload[0].IS_ADMIN,
+			};*/
+			return {...state,
+				//id: action.payload[0].USER_ID,
+				//userEmail: action.payload.userEmail,
+				firstName: action.payload.firstName,
+				lastName: action.payload.lastName,
+				isGuest: false,
+			};
+/************************************************************************/
+		case "SIGN_OUT_SUCCESS":
+			return initialState;
+		case "SIGN_OUT_FAILURE":
+			console.log("Error: ", action.payload);
+			return state;
 /************************************************************************/
 		case "SIGNIN_SUBMIT_SUCCESS":
 			console.log(action.payload);

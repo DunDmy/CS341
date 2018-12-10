@@ -17,7 +17,7 @@ export const setBilling = (card, user) => {
 	var month = currentDate.getMonth(); //Be careful! January is 0 not 1
 	var year = currentDate.getFullYear();
 	var dateString = date + "-" +(month + 1) + "-" + year;
-	var url = 'http://localhost:3000/shoppingpage/shoppingcart/' + user.id + '/' + card.id + '/' + dateString + '/' + card.quantity;
+	var url = 'http://localhost:3000/shoppingpage/shoppingcart/' + user.id + '/' + card.id +  card.quantity + '/' + dateString ;
 	console.log(url);
 	return dispatch => {
 		axios

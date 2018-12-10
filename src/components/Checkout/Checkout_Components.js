@@ -147,7 +147,6 @@ const Checkout_Components = ({props, state, target}) => {
 function taxAndStateUpdate(event, target){
 	target(event);
 	taxesCost(event);
-
 }
 
 function test(event, props, page) {
@@ -169,9 +168,9 @@ function test(event, props, page) {
 
 			name: page.nameForm.current.value,
 			country: page.countryForm.current.value,
-			street: page.stateForm.current.value,
+			street: page.streetForm.current.value,
 			city: page.cityForm.current.value,
-			state: page.stateForm.current.value,
+			state: page.streetForm.current.value,
 			zip: page.zipForm.current.value,
 		}
 		props.evalShipping(shippingInfo)
@@ -196,7 +195,7 @@ function shippingCost(shippingInfo) {
 
 function taxesCost(props) {
 	console.log(props);
-	return props;
+	return 1;
 }
 
 function totalProductCost(props, promoEnabled) {

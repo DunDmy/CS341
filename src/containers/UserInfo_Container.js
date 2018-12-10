@@ -12,10 +12,11 @@ import {bindActionCreators} from 'redux';
 //Imported Actions
 //import {ACTION} from '../actions/index.js'; //Imports the ACTION function from the action file.
 import {UpdateUser_Action} from '../actions/UpdateUser_Action';
-
+import {updateSuccess} from '../actions/UpdateUser_Action';
 //Takes state (data from store) and gives component access via properties (propname:).
 const mapStateToProps = state =>{
 	return {
+		id: state.activeUser.id,
 		firstName: state.activeUser.firstName,
 		lastName: state.activeUser.lastName,
 		email: state.activeUser.userEmail
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
 	}, dispatch)
 	*/
 	return {
-
+		updateSuccess: (userInfo) => dispatch(updateSuccess(userInfo)),
 		UpdateUser_Action: (userInfo) => dispatch(UpdateUser_Action(userInfo))
 	}
 }
@@ -95,6 +96,7 @@ class UserInfo_Container extends Component{
 */
 	saveUser() {
 		var userInfo = {
+			id: this.props.id,
 			firstName: document.getElementById("firstname").value,
 			lastName: document.getElementById("lastname").value,
 			email: document.getElementById("email").value
@@ -105,6 +107,7 @@ class UserInfo_Container extends Component{
 		//event.preventDefault();
 		this.state.isEditing = false
 		this.props.UpdateUser_Action(userInfo);
+		this.props.updateSuccess(userInfo);
 		this.forceUpdate();
 	}
 

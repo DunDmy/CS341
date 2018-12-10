@@ -13,19 +13,20 @@ import WelcomeBanner from '../components/WelcomeBanner/WelcomeBanner_Components.
 
 //Imported Actions
 import {changePage} from '../actions/changePage.js'
+import {signOutSuccess} from '../actions/signOut.js'
 
 //Accesses storage.
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) =>{ //TODO: SAVE CART ACTION
 	return {
 		user: state.activeUser,
 		app: state.appStates
 	}
 }
 
-//TODO: add more action functions as props.
 //Handles actions. Stores as a bounded prop.
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({changePage: changePage}, dispatch)
+	return bindActionCreators({changePage: changePage, signOut: signOutSuccess,
+	}, dispatch)
 }
 
 class WelcomeBanner_Container extends Component {

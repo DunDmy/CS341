@@ -1,4 +1,4 @@
-/* Author: Austin Vanburen, Dmytro Dundukov
+/* Author: Austin Vanburen
  * Last Edited: 11/6/18
  * Status: Complete
  * Description: Component which renders credit card and price information.
@@ -14,7 +14,7 @@ import CreditCardInput from 'react-credit-card-input';
 
 const Checkout_Components = ({props}) => {
 	return (
-		<Modal.Dialog autoFocus={true} backdrop="static">
+		<Modal.Dialog>
 			<Modal.Header>
 				<Modal.Title>Checkout</Modal.Title>
 				<Button bsStyle="danger" bsSize="xsmall" onClick={() => props.changeFlux('e')}>X</Button>
@@ -84,11 +84,7 @@ function confirm(event, props, page) {
 	console.log(valid)
 	console.log(card)
 
-	//props.setBilling(card);
-	console.log("PURCHASED ITEM");
-	console.log("______________________");
-	console.log(props.items[0]);
-	props.setBilling(props.items[0], props.user);//TODO: you can buy only one item at a time
+	props.setBilling(props.items[0], props.user);
 	//Items = items in cart.
 	props.reduceItemStock(props.items);
 	props.clearCart();
@@ -120,13 +116,24 @@ function renderListofItems (props) {
 
 
 function renderPrice(item, promoEnabled) {
-	if(promoEnabled && item.promo) {
+	if(promoEnabled && item.promo && withinPromoDates(item)) {
 		return (item.price - (item.price * item.promoPrice));
 	} else if (item.sale) {
 		return item.salePrice;
 	} else {
 		return item.price;
 	}
+}
+
+//YYYY-MM-DD
+function withinPromoDates(item) {
+	console.log(item.promoStart, item.promoEnd);
+	var start = new Date(item.promoStart.slice(0,9));
+	var end = new Date(item.promoEnd);
+	var cur = new Date();
+
+	return ((start.getDate() <= cur.getDate()) && 
+				(cur.getDate() <= end.getDate()))
 }
 
 const greaterThan0 = (element, index, array) => {

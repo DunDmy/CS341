@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class History extends React.Component {
 
-	 componentWillMount() {
+	 componentDidMount() {
 	 	var url = 'http://localhost:3000/shoppingpage/shoppingcart/' + this.props.user.id;
 	 	console.log(this.props);
 	 	console.log(url);

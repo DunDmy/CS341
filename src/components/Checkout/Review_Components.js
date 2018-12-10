@@ -22,7 +22,7 @@ const Review_Components = ({props}) => {
 			<Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
 				<Grid>
 					<Row>
-						<p>Order Confirmed! Please check your email for further details regarding your order and shipping.
+						<p>Order Confirmed! Please check your mail for further details regarding your order and shipping.
 						</p>
 					</Row>
 				</Grid>
